@@ -1,9 +1,900 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<title>时夏_Tourist的个人网站</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时夏-Tourist 的 Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4CAF50',
+                        secondary: '#FF9800',
+                        accent: '#2196F3',
+                        neutral: '#F9F9F9',
+                        dark: '#333333',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+            }
+            .section-padding {
+                @apply py-12 md:py-16;
+            }
+            .glassmorphism {
+                @apply bg-white/70 backdrop-blur-md border border-white/20;
+            }
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url('https://picsum.photos/id/1015/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .skill-bar {
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .memory-card {
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        
+        .memory-card.flip {
+            transform: rotateY(180deg);
+        }
+        
+        .front-face, .back-face {
+            backface-visibility: hidden;
+        }
+        
+        .front-face {
+            transform: rotateY(180deg);
+        }
+        
+        .grid-container {
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+            border-radius: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .light {
+            width: clamp(30px, 8vw, 60px);
+            height: clamp(30px, 8vw, 60px);
+            background-color: rgba(76, 175, 80, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .light.off {
+            background-color: rgba(51, 51, 51, 0.7);
+            box-shadow: none;
+        }
+        
+        .light:hover:not(.off) {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
+        }
+        
+        .victory-modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .victory-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* 复制提示样式 */
+        .copy-tooltip {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .copy-tooltip.show {
+            opacity: 1;
+        }
+        
+        /* 美化后的联系方式样式 */
+        .contact-card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-color, #4CAF50);
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--bg-color, #4CAF5010);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+        }
+        
+        .contact-icon i {
+            color: var(--icon-color, #4CAF50);
+            font-size: 18px;
+        }
+        
+        .contact-content {
+            flex: 1;
+        }
+        
+        .contact-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 2px;
+        }
+        
+        .contact-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .contact-copy {
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #888;
+        }
+        
+        .contact-copy:hover {
+            background-color: #f0f0f0;
+            color: var(--icon-color, #4CAF50);
+        }
+        
+        /* 自定义每个联系方式的颜色 */
+        .contact-card.wechat::before,
+        .contact-card.wechat .contact-icon {
+            --accent-color: #07C160;
+            --bg-color: #07C16010;
+            --icon-color: #07C160;
+        }
+        
+        .contact-card.qq::before,
+        .contact-card.qq .contact-icon {
+            --accent-color: #12B7F5;
+            --bg-color: #12B7F510;
+            --icon-color: #12B7F5;
+        }
+        
+        .contact-card.luogu::before,
+        .contact-card.luogu .contact-icon {
+            --accent-color: #FF7300;
+            --bg-color: #FF730010;
+            --icon-color: #FF7300;
+        }
+        
+        .contact-card.email::before,
+        .contact-card.email .contact-icon {
+            --accent-color: #D14836;
+            --bg-color: #D1483610;
+            --icon-color: #D14836;
+        }
+        
+        .contact-card.phone::before,
+        .contact-card.phone .contact-icon {
+            --accent-color: #34C759;
+            --bg-color: #34C75910;
+            --icon-color: #34C759;
+        }
+    </style>
 </head>
-<body>
-<h1> Not Working </h1>
+<body class="bg-white text-dark font-inter">
+
+    <!-- 主要内容 -->
+    <main class="pt-16 min-h-screen flex items-center justify-center p-6">
+        <!-- 网格布局容器 -->
+        <div class="grid-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl w-full">
+            <!-- 个人信息卡片 -->
+            <section id="info" class="glassmorphism p-6 md:p-8 rounded-xl flex flex-col justify-center card-hover lg:col-span-1">
+                <div class="max-w-md mx-auto">
+                    <div class="flex flex-col items-center text-center mb-8">
+                        <div class="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary/20 mb-4">
+                            <img src="https://picsum.photos/200/200?random=1" alt="个人头像" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-primary/10"></div>
+                        </div>
+                        <h2 class="text-3xl font-bold text-dark mb-2">时夏-Tourist</h2>
+                        <p class="text-gray-600 mb-4">一名普普通通的OIer</p>
+                        
+                        <!-- 美化后的联系方式 -->
+                        <div class="mt-6 w-full">
+                            <div class="contact-card wechat flex items-center">
+                                <div class="contact-icon">
+                                    <i class="fa-brands fa-weixin"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <div class="contact-label">微信</div>
+                                    <div class="contact-value">DreamofAKIOI0890</div>
+                                </div>
+                                <div class="contact-copy copy-btn" data-value="DreamofAKIOI0890">
+                                    <i class="fa-solid fa-copy"></i>
+                                </div>
+                                <div class="copy-tooltip">复制成功!</div>
+                            </div>
+                            
+                            <div class="contact-card qq flex items-center">
+                                <div class="contact-icon">
+                                    <i class="fa-brands fa-qq"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <div class="contact-label">QQ（用的比较少哈）</div>
+                                    <div class="contact-value">tkmlk211</div>
+                                </div>
+                                <div class="contact-copy copy-btn" data-value="tkmlk211">
+                                    <i class="fa-solid fa-copy"></i>
+                                </div>
+                                <div class="copy-tooltip">复制成功!</div>
+                            </div>
+                            
+                            <div class="contact-card luogu flex items-center">
+                                <div class="contact-icon">
+                                    <i class="fa-solid fa-code"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <div class="contact-label">洛谷</div>
+                                    <div class="flex items-center">
+                                        <div class="contact-value">921880</div>
+                                        <a href="https://www.luogu.com.cn/user/921880" class="ml-2 text-primary text-sm">(2022xsj)</a>
+                                    </div>
+                                </div>
+                                <div class="contact-copy copy-btn" data-value="921880">
+                                    <i class="fa-solid fa-copy"></i>
+                                </div>
+                                <div class="copy-tooltip">复制成功!</div>
+                            </div>
+                            
+                            <div class="contact-card email flex items-center">
+                                <div class="contact-icon">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <div class="contact-label">邮箱（不常用哈）</div>
+                                    <div class="contact-value">2781280963@qq.com</div>
+                                </div>
+                                <div class="contact-copy copy-btn" data-value="2781280963@qq.com">
+                                    <i class="fa-solid fa-copy"></i>
+                                </div>
+                                <div class="copy-tooltip">复制成功!</div>
+                            </div>
+                            
+                            <div class="contact-card phone flex items-center">
+                                <div class="contact-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div class="contact-content">
+                                    <div class="contact-label">电话（基本不用）</div>
+                                    <div class="contact-value">13258101600</div>
+                                </div>
+                                <div class="contact-copy copy-btn" data-value="13258101600">
+                                    <i class="fa-solid fa-copy"></i>
+                                </div>
+                                <div class="copy-tooltip">复制成功!</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 个人介绍 -->
+                    <div class="space-y-6 mt-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 flex items-center">
+                                <span class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
+                                    <i class="fa-solid fa-user text-primary"></i>
+                                </span>
+                                About Me
+                            </h3>
+                            <p class="text-gray-700 leading-relaxed">
+                                我是普通的OIer，没什么亮眼的成绩，目前准高一，在cdqzby读书。梦想成为一个programmer。
+                            </p>
+                            <p class="text-gray-700 leading-relaxed">性别：男</p>
+                            <p class="text-gray-700 leading-relaxed">生日：2010 年 2 月 11 日</p>
+                            <p class="text-gray-700 leading-relaxed">学籍：成都七中八一学校直升班</p>
+                        </div>
+                        
+                        <!-- 技能栏 -->
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 flex items-center">
+                                <span class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
+                                    <i class="fa-solid fa-code text-primary"></i>
+                                </span>
+                                技能
+                            </h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium">算法竞赛（很fw）</span>
+                                        <span class="text-sm text-gray-500">70%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-primary h-2 rounded-full skill-bar" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium">可能还会吹笛子？</span>
+                                        <span class="text-sm text-gray-500">40%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-primary h-2 rounded-full skill-bar" style="width: 40%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Flags栏 -->
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3 flex items-center">
+                                <span class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
+                                    <i class="fa-solid fa-flag text-primary"></i>
+                                </span>
+                                Flags
+                            </h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium">AKIOI（白日梦）</span>
+                                        <span class="text-sm text-gray-500">10%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-primary h-2 rounded-full skill-bar" style="width: 10%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium">拥有极好的成绩</span>
+                                        <span class="text-sm text-gray-500">70%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-primary h-2 rounded-full skill-bar" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 常用功能卡片 -->
+            <section id="tools" class="glassmorphism p-6 md:p-8 rounded-xl flex flex-col justify-center items-center card-hover">
+                <div class="text-center max-w-md">
+                    <div class="w-20 h-20 rounded-full bg-gray-100/50 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-wrench text-gray-400 text-4xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-dark mb-4">常用功能</h2>
+                    <p class="text-gray-600 mb-6">正在开发中，敬请期待！</p>
+                    <div class="relative w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="absolute left-0 top-0 h-full bg-primary" style="width: 0%;"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">开发进度: 0%</p>
+                </div>
+            </section>
+
+            <!-- 个人博客卡片 -->
+            <section id="blog" class="glassmorphism p-6 md:p-8 rounded-xl flex flex-col justify-center items-center card-hover">
+                <div class="text-center max-w-md">
+                    <div class="w-20 h-20 rounded-full bg-gray-100/50 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-book text-gray-400 text-4xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-dark mb-4">个人博客</h2>
+                    <p class="text-gray-600 mb-6">还没开写，以后专门用一页来做罢。先拿luogu的来水一下（其实里面基本没有什么东西）</p>
+                    <a href="https://www.luogu.com.cn/user/921880#article">My Blog</a>
+                    <div class="relative w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="absolute left-0 top-0 h-full bg-primary" style="width: 1%;"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">开发进度: 1%</p>
+                </div>
+            </section>
+            
+            <!-- 记忆卡片游戏卡片 -->
+            <section id="game" class="glassmorphism p-6 md:p-8 rounded-xl flex flex-col justify-center card-hover lg:col-span-2">
+                <div class="max-w-md mx-auto w-full">
+                    <h2 class="text-3xl font-bold text-dark mb-6 text-center">记忆卡片小游戏</h2>
+                    
+                    <!-- 游戏开始界面 -->
+                    <div id="gameStart" class="text-center py-12">
+                        <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                            <i class="fa-solid fa-play text-primary text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">准备开始游戏</h3>
+                        <p class="text-gray-600 mb-6">找到所有匹配的卡片，挑战你的记忆力！</p>
+                        <button id="startGameBtn" class="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-lg transition-colors flex items-center justify-center mx-auto">
+                            <i class="fa-solid fa-gamepad mr-2"></i> 开始游戏
+                        </button>
+                    </div>
+                    
+                    <!-- 游戏界面 (默认隐藏) -->
+                    <div id="gameInterface" class="hidden">
+                        <div class="game-info flex justify-between items-center mb-4">
+                            <div>
+                                <span class="text-sm text-gray-600">时间: </span>
+                                <span id="timer" class="font-semibold">0s</span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">步数: </span>
+                                <span id="moves" class="font-semibold">0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="game-container grid grid-cols-4 gap-3 mb-6">
+                            <!-- 游戏卡片将在这里动态生成 -->
+                        </div>
+                        
+                        <button id="restartBtn" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center">
+                            <i class="fa-solid fa-refresh mr-2"></i> 重新开始
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 关灯游戏卡片 -->
+            <section id="lightsOutGame" class="glassmorphism p-6 md:p-8 rounded-xl flex flex-col justify-center card-hover">
+                <div class="max-w-md mx-auto w-full">
+                    <h2 class="text-3xl font-bold text-dark mb-6 text-center">关灯游戏</h2>
+                    <div class="text-center mb-4">
+                        <label for="boardSize">选择地图大小:</label>
+                        <select id="boardSize">
+                            <option value="3">3x3</option>
+                            <option value="4">4x4</option>
+                            <option value="5">5x5</option>
+                        </select>
+                        <button id="startLightsOutGame" class="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-lg transition-colors flex items-center justify-center mx-auto mt-4">
+                            <i class="fa-solid fa-lightbulb mr-2"></i> 开始游戏
+                        </button>
+                        <button id="resetLightsOutGame" class="bg-secondary hover:bg-secondary/90 text-white font-medium py-3 px-8 rounded-lg transition-colors flex items-center justify-center mx-auto mt-3 hidden">
+                            <i class="fa-solid fa-refresh mr-2"></i> 重置游戏
+                        </button>
+                    </div>
+                    <!-- 优化关灯游戏容器 -->
+                    <div id="lightsOutBoard" class="grid grid-cols-3 gap-2 justify-center mx-auto max-w-xs"></div>
+                </div>
+            </section>
+
+            <!-- 敬请期待卡片 -->
+            <section id="comingSoon" class="glassmorphism p-6 md:p-8 rounded-xl flex flex-col justify-center items-center card-hover">
+                <div class="text-center max-w-md">
+                    <div class="w-20 h-20 rounded-full bg-gray-100/50 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-hourglass-half text-gray-400 text-4xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-dark mb-4">敬请期待</h2>
+                    <p class="text-gray-600 mb-6">更多精彩内容即将上线，敬请关注！</p>
+                    <div class="relative w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="absolute left-0 top-0 h-full bg-primary" style="width: 0%;"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">开发进度: 0%</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 胜利提示模态框 -->
+    <div id="victoryModal" class="victory-modal">
+        <div class="victory-content">
+            <h2 class="victory-title">🎉 恭喜胜利！</h2>
+            <p class="victory-message">你成功完成了关灯游戏！</p>
+            <button id="playAgainLightsOutBtn" class="victory-button">再玩一次</button>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="glassmorphism text-dark py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 设计与开发：时夏-Tourist（+豆包）</p>
+            <a href="#top">回到顶部</a>
+            <p class="text-sm text-gray-600 mt-2">本网站仅用于学习和展示</p>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 复制功能
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                const tooltip = this.closest('.contact-card').querySelector('.copy-tooltip');
+                
+                // 复制到剪贴板
+                navigator.clipboard.writeText(value)
+                    .then(() => {
+                        // 显示提示
+                        tooltip.classList.add('show');
+                        
+                        // 2秒后隐藏提示
+                        setTimeout(() => {
+                            tooltip.classList.remove('show');
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.error('复制失败: ', err);
+                        tooltip.textContent = '复制失败!';
+                        tooltip.classList.add('show');
+                        
+                        setTimeout(() => {
+                            tooltip.classList.remove('show');
+                            tooltip.textContent = '复制成功!';
+                        }, 2000);
+                    });
+            });
+        });
+        
+        // 记忆卡片游戏
+        document.addEventListener('DOMContentLoaded', () => {
+            const gameStart = document.getElementById('gameStart');
+            const gameInterface = document.getElementById('gameInterface');
+            const gameContainer = document.querySelector('.game-container');
+            const movesElement = document.getElementById('moves');
+            const timerElement = document.getElementById('timer');
+            const startGameBtn = document.getElementById('startGameBtn');
+            const restartBtn = document.getElementById('restartBtn');
+            const gameOverModal = document.getElementById('gameOverModal');
+            const finalTimeElement = document.getElementById('finalTime');
+            const finalMovesElement = document.getElementById('finalMoves');
+            const playAgainBtn = document.getElementById('playAgainBtn');
+            
+            let cards = [];
+            let flippedCards = [];
+            let matchedCards = [];
+            let moves = 0;
+            let timer = 0;
+            let timerInterval;
+            let isPlaying = false;
+            
+            // 卡片图标
+            const icons = [
+                'fa-heart', 'fa-star', 'fa-diamond', 'fa-bolt', 
+                'fa-leaf', 'fa-bicycle', 'fa-car', 'fa-plane'
+            ];
+            
+            // 初始化游戏
+            function initGame() {
+                // 重置游戏状态
+                cards = [];
+                flippedCards = [];
+                matchedCards = [];
+                moves = 0;
+                timer = 0;
+                isPlaying = true;
+                
+                // 更新UI
+                movesElement.textContent = moves;
+                timerElement.textContent = `${timer}s`;
+                gameContainer.innerHTML = '';
+                gameOverModal.classList.add('hidden');
+                
+                // 复制图标形成配对并打乱顺序
+                const iconsPair = [...icons, ...icons];
+                const shuffledIcons = shuffleArray(iconsPair);
+                
+                // 创建卡片
+                shuffledIcons.forEach((icon, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'memory-card relative aspect-square cursor-pointer card-hover';
+                    card.dataset.icon = icon;
+                    card.dataset.index = index;
+                    
+                    card.innerHTML = `
+                        <div class="front-face absolute inset-0 bg-white/80 rounded-lg flex items-center justify-center shadow-sm">
+                            <i class="fa-solid ${icon} text-3xl text-primary"></i>
+                        </div>
+                        <div class="back-face absolute inset-0 bg-primary/80 rounded-lg flex items-center justify-center shadow-sm">
+                            <i class="fa-solid fa-question text-3xl text-white"></i>
+                        </div>
+                    `;
+                    
+                    card.addEventListener('click', flipCard);
+                    gameContainer.appendChild(card);
+                    cards.push(card);
+                });
+                
+                // 开始计时
+                clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    timer++;
+                    timerElement.textContent = `${timer}s`;
+                }, 1000);
+            }
+            
+            // 洗牌算法
+            function shuffleArray(array) {
+                const newArray = [...array];
+                for (let i = newArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                return newArray;
+            }
+            
+            // 翻转卡片
+            function flipCard() {
+                const card = this;
+                
+                // 检查卡片是否已翻开或已匹配
+                if (flippedCards.length >= 2 || flippedCards.includes(card) || matchedCards.includes(card)) {
+                    return;
+                }
+                
+                // 翻转卡片
+                card.classList.add('flip');
+                flippedCards.push(card);
+                
+                // 增加步数
+                if (flippedCards.length === 2) {
+                    moves++;
+                    movesElement.textContent = moves;
+                    checkForMatch();
+                }
+            }
+            
+            // 检查匹配
+            function checkForMatch() {
+                const [card1, card2] = flippedCards;
+                
+                if (card1.dataset.icon === card2.dataset.icon) {
+                    // 匹配成功
+                    matchedCards.push(card1, card2);
+                    flippedCards = [];
+                    
+                    // 检查游戏是否结束
+                    if (matchedCards.length === cards.length) {
+                        gameOver();
+                    }
+                } else {
+                    // 匹配失败，翻回
+                    setTimeout(() => {
+                        card1.classList.remove('flip');
+                        card2.classList.remove('flip');
+                        flippedCards = [];
+                    }, 1000);
+                }
+            }
+            
+            // 游戏结束
+            function gameOver() {
+                isPlaying = false;
+                clearInterval(timerInterval);
+                
+                // 显示结果
+                finalTimeElement.textContent = `${timer}s`;
+                finalMovesElement.textContent = moves;
+                gameOverModal.classList.remove('hidden');
+            }
+            
+            // 事件监听
+            startGameBtn.addEventListener('click', () => {
+                gameStart.classList.add('hidden');
+                gameInterface.classList.remove('hidden');
+                initGame();
+            });
+            
+            restartBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    if (confirm('确定要重新开始游戏吗？')) {
+                        initGame();
+                    }
+                } else {
+                    initGame();
+                }
+            });
+            
+            playAgainBtn.addEventListener('click', () => {
+                gameOverModal.classList.add('hidden');
+                initGame();
+            });
+        });
+
+        // 关灯游戏
+        document.addEventListener('DOMContentLoaded', () => {
+            const boardSizeSelect = document.getElementById('boardSize');
+            const startLightsOutGameBtn = document.getElementById('startLightsOutGame');
+            const resetLightsOutGameBtn = document.getElementById('resetLightsOutGame');
+            const lightsOutBoard = document.getElementById('lightsOutBoard');
+            const victoryModal = document.getElementById('victoryModal');
+            const playAgainLightsOutBtn = document.getElementById('playAgainLightsOutBtn');
+            
+            let boardSize = parseInt(boardSizeSelect.value);
+            let board = [];
+            let gameStarted = false;
+            
+            // 初始化游戏
+            function initLightsOutGame() {
+                // 重置游戏状态
+                board = [];
+                lightsOutBoard.innerHTML = '';
+                gameStarted = true;
+                
+                // 设置网格列数
+                lightsOutBoard.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
+                
+                // 创建游戏板
+                for (let i = 0; i < boardSize; i++) {
+                    board[i] = [];
+                    for (let j = 0; j < boardSize; j++) {
+                        // 随机初始化灯的状态（70%概率亮灯）
+                        board[i][j] = Math.random() > 0.3;
+                        
+                        const light = document.createElement('div');
+                        light.className = 'light';
+                        if (!board[i][j]) light.classList.add('off');
+                        light.dataset.row = i;
+                        light.dataset.col = j;
+                        
+                        light.addEventListener('click', toggleLight);
+                        lightsOutBoard.appendChild(light);
+                    }
+                }
+                
+                // 显示重置按钮，隐藏开始按钮
+                startLightsOutGameBtn.classList.add('hidden');
+                resetLightsOutGameBtn.classList.remove('hidden');
+            }
+            
+            // 切换灯的状态
+            function toggleLight() {
+                if (!gameStarted) return;
+                
+                const row = parseInt(this.dataset.row);
+                const col = parseInt(this.dataset.col);
+                
+                // 切换点击的灯
+                toggle(row, col);
+                
+                // 切换上下左右的灯
+                if (row > 0) toggle(row - 1, col);
+                if (row < boardSize - 1) toggle(row + 1, col);
+                if (col > 0) toggle(row, col - 1);
+                if (col < boardSize - 1) toggle(row, col + 1);
+                
+                // 检查是否胜利
+                if (checkWin()) {
+                    setTimeout(() => {
+                        victoryModal.classList.add('active');
+                    }, 300);
+                }
+            }
+            
+            // 切换单个灯的状态
+            function toggle(row, col) {
+                board[row][col] = !board[row][col];
+                const light = lightsOutBoard.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                if (board[row][col]) {
+                    light.classList.remove('off');
+                } else {
+                    light.classList.add('off');
+                }
+            }
+            
+            // 检查是否所有灯都关闭
+            function checkWin() {
+                for (let i = 0; i < boardSize; i++) {
+                    for (let j = 0; j < boardSize; j++) {
+                        if (board[i][j]) return false;
+                    }
+                }
+                return true;
+            }
+            
+            // 事件监听
+            startLightsOutGameBtn.addEventListener('click', () => {
+                boardSize = parseInt(boardSizeSelect.value);
+                initLightsOutGame();
+            });
+            
+            resetLightsOutGameBtn.addEventListener('click', () => {
+                boardSize = parseInt(boardSizeSelect.value);
+                initLightsOutGame();
+            });
+            
+            playAgainLightsOutBtn.addEventListener('click', () => {
+                victoryModal.classList.remove('active');
+                boardSize = parseInt(boardSizeSelect.value);
+                initLightsOutGame();
+            });
+            
+            // 监听地图大小变化
+            boardSizeSelect.addEventListener('change', () => {
+                if (gameStarted) {
+                    if (confirm('更改地图大小将重置游戏，是否继续？')) {
+                        boardSize = parseInt(boardSizeSelect.value);
+                        initLightsOutGame();
+                    } else {
+                        // 恢复原来的选择
+                        boardSizeSelect.value = boardSize.toString();
+                    }
+                } else {
+                    boardSize = parseInt(boardSizeSelect.value);
+                }
+            });
+        });
+    </script>
 </body>
-</html>
+</html>    
