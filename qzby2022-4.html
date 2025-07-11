@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>致 李侠老师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4A6FA5',
+                        secondary: '#E8C51D',
+                        accent: '#F2786D',
+                        neutral: '#F8F9FA',
+                    },
+                    fontFamily: {
+                        cursive: ['Brush Script MT', 'cursive'],
+                        sans: ['Nunito', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .card-shadow {
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .rotate-hover {
+                transition: transform 0.3s ease;
+            }
+            .rotate-hover:hover {
+                transform: rotate(-2deg) scale(1.02);
+            }
+            .paper-texture {
+                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239fa6ad' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            }
+        }
+    </style>
+</head>
+<body class="bg-primary min-h-screen flex items-center justify-center p-4 md:p-8">
+
+    <div class="relative w-full max-w-2xl">
+
+        <div id="card-front" class="bg-white rounded-lg overflow-hidden card-shadow rotate-hover z-20 absolute w-full h-[600px] md:h-[650px]">
+            <div class="paper-texture bg-gradient-to-b from-blue-50 to-white h-full p-8 md:p-12">
+                <div class="text-center mb-10 pt-6">
+                    <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-cursive text-primary text-shadow mb-2">毕业谢师卡</h1>
+                    <div class="w-32 h-1 bg-secondary mx-auto mb-4"></div>
+                    <p class="text-gray-600 italic">师恩难忘，岁月情长</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row items-center justify-around gap-6 mb-12">
+                    <div class="w-32 h-32 md:w-40 md:h-40 bg-primary/10 rounded-full flex items-center justify-center">
+                        <i class="fa fa-graduation-cap text-6xl md:text-7xl text-primary/70"></i>
+                    </div>
+                    <div class="text-center md:text-right">
+                        <p class="text-lg md:text-xl text-gray-700">致 李侠老师</p>
+                        <p class="text-lg md:text-xl text-gray-700 mt-2">来自 夏盛骏</p>
+                        <p class="text-lg md:text-xl text-gray-700">成都七中八一学校</p>
+                        <p class="text-lg md:text-xl text-gray-700">初2022级4班</p>
+                    </div>
+                </div>
+                
+
+                <div class="flex justify-center my-6">
+                    <div class="w-1/2 h-px bg-primary/20"></div>
+                    <div class="mx-4 text-secondary">
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="w-1/2 h-px bg-primary/20"></div>
+                </div>
+                
+                <div class="absolute bottom-6 right-6">
+                    <button id="open-btn" class="bg-primary hover:bg-primary/80 text-white py-2 px-4 rounded-full transition-all duration-300 flex items-center gap-2">
+                        <span>打开贺卡</span>
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+
+                <div class="absolute top-4 left-4 text-secondary/30">
+                    <i class="fa fa-star text-xl"></i>
+                    <i class="fa fa-star text-lg ml-2"></i>
+                    <i class="fa fa-star text-sm ml-2"></i>
+                </div>
+                <div class="absolute bottom-4 left-4 text-secondary/30">
+                    <i class="fa fa-star text-sm"></i>
+                    <i class="fa fa-star text-lg ml-2"></i>
+                    <i class="fa fa-star text-xl ml-2"></i>
+                </div>
+            </div>
+        </div>
+        
+
+        <div id="card-inside" class="bg-white rounded-lg overflow-hidden card-shadow z-10 p-8 md:p-12 h-[600px] md:h-[650px] paper-texture bg-gradient-to-b from-blue-50 to-white">
+            <div class="mb-8">
+                <h2 class="text-2xl md:text-3xl font-cursive text-primary mb-6 text-center">亲爱的李侠老师：</h2>
+                
+                <div class="text-gray-700 leading-relaxed space-y-4 text-lg">
+                    <p>时光飞逝，三年的初中生涯即将画上句点。站在毕业的路口，心中充满了不舍与感激。感谢您这三年来的辛勤付出与悉心教导，是您的谆谆教诲，照亮了我们前行的道路。</p>
+                    
+                    <p>您不仅教会我们知识，更教会我们如何做人、如何面对挑战。课堂上，您生动有趣的讲解让枯燥的知识变得鲜活；课后，您耐心地等我们一遍又一遍背书，关注我们的成长。</p>
+                    
+                    <p>仍记得您刚刚接手班级的时候在班级会上的豪言壮语，如您所愿，九年级四班发生了未曾有过的巨大改变，这是初2022级4班的三年最圆满的句号。</p>
+                    
+                    <p>毕业不是结束，而是新的开始。我们会带着您的期望与教导，在未来的道路上继续努力，不负韶华，不负师恩。会挽雕弓如满月，亲射虎，我们将要成为那孙郎。</p>
+                    
+                    <p class="text-right mt-6">再次感谢您的辛勤付出！祝您工作顺利，身体健康！</p>
+                    
+                    <p style="font-size: 15px; color: #999999">另外，请也向宋皓希老师和其他所有任课老师传达我们的感恩之情。感谢所有老师三年里为我们的朝朝暮暮、一分一秒。</p>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-10 right-8 md:right-16">
+                <div class="text-right">
+                    <p class="text-xl font-semibold text-primary">学生：夏盛骏</p>
+                    <p class="text-gray-500 mt-1">Graduation Time</p>
+                </div>
+            </div>
+            
+
+            <div class="flex justify-center mt-4 gap-6">
+                <div class="w-16 h-1 bg-secondary/50"></div>
+                <div class="text-secondary">
+                    <i class="fa fa-heart"></i>
+                </div>
+                <div class="w-16 h-1 bg-secondary/50"></div>
+            </div>
+            
+ 
+            <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-4 text-primary/20">
+                <i class="fa fa-book"></i>
+                <i class="fa fa-pencil"></i>
+                <i class="fa fa-ruler"></i>
+                <i class="fa fa-bell"></i>
+                <i class="fa fa-calendar"></i>
+            </div>
+        </div>
+
+    <div class="w-full max-w-2xl bg-white rounded-lg p-6 md:p-8 card-shadow paper-texture mt-6">
+        <h3 class="text-xl font-semibold text-primary mb-4 text-center">请您点一下这下方按钮，让我知道您看过了</h3>
+        <p style="font-size: 15px; color: #999999" class="text-gray-600 text-center mb-6">(另外，若您以后再来访问这个小站，或许会发现一些不一样)</p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-4">
+            <a href="https://vote.saobby.com/v/JMBAPGYc/0" class="vote-option bg-blue-50 hover:bg-blue-100 text-primary font-medium py-2 px-6 rounded-full flex items-center justify-center">
+                <span>我看过了</span>
+                <img src="https://vote.saobby.com/i/JMBAPGYc/0" alt="投票选项1" class="ml-2 h-5">
+            </a>
+        </div>
+        
+    </div>
+    </div>
+
+    <script>
+        // 贺卡打开动画
+        document.getElementById('open-btn').addEventListener('click', function() {
+            const cardFront = document.getElementById('card-front');
+            cardFront.style.transform = 'rotateY(-180deg)';
+            cardFront.style.opacity = '0';
+            cardFront.style.transition = 'all 1s ease-in-out';
+            
+            // 延迟后隐藏封面
+            setTimeout(() => {
+                cardFront.style.display = 'none';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
